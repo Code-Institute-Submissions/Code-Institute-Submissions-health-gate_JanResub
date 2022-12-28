@@ -1,15 +1,36 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Post
-from .forms import CommentForm
+from .models import Post, Comment, Category
+from .forms import CommentForm, PostForm
 
 
 class PostList(generic.ListView):
     model = Post
-    queryset = Post.objects.filter(status=1).order_by("-created_on")
     template_name = "index.html"
     paginate_by = 6
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = self.request.GET.get('q') # category id / name
+        categories = Category.objects.order_by("-name")
+        if category is not None:
+            if category.isnumeric():
+                category = int(category)
+                queryset = Post.objects.filter(status=1, category=category)
+            else:
+                queryset = Post.objects.filter(status=1, category__name=category)
+        else:
+            queryset = Post.objects.filter(status=1)
+        
+        # making the list of context to be used in the templates
+        # context = {
+        #     "posts":queryset
+        #     "categories":categories
+        # }
+        context["posts"] = queryset
+        context["categories"]=categories
+
+        return context
 
 
 class PostDetail(View):
