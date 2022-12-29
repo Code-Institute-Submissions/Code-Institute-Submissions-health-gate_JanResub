@@ -3,6 +3,7 @@ from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Post, Comment, Category
 from .forms import CommentForm, PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostList(generic.ListView):
@@ -95,5 +96,65 @@ class PostLike(View):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
+
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+
+class PostUpVote(LoginRequiredMixin, View):
+
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        is_downvote = False
+
+        for vote in post.downvote.all():
+            if vote == request.user:
+                is_downvote = True
+                break
+        
+        if is_downvote:
+            post.downvote.remove(request.user)
+
+        is_upvote = False
+
+        for vote in post.upvote.all():
+            if vote == request.user:
+                is_upvote = True
+                break
+       
+        if not is_upvote:
+            post.upvote.add(request.user)
+        else:
+            post.upvote.remove(request.user)
+
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+
+class PostDownVote(LoginRequiredMixin, View):
+
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        is_upvote = False
+
+        for vote in post.upvote.all():
+            if vote == request.user:
+                is_upvote = True
+                break
+
+        if is_upvote:
+            post.upvote.remove(request.user)
+       
+        is_downvote = False
+
+        for vote in post.downvote.all():
+            if vote == request.user:
+                is_downvote = True
+                break  
+
+        if not is_downvote:
+            post.downvote.add(request.user)
+        else:
+            post.downvote.remove(request.user)
 
         return HttpResponseRedirect(reverse('post_detail', args=[slug]))

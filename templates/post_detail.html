@@ -51,6 +51,34 @@
                         <span class="text-secondary">{{ post.number_of_likes }} </span>
                         </strong>
                     </div>
+                    
+                    <div class="col-1">
+                        <strong>
+                            {% if user.is_authenticated %}
+                            <form class="d-inline" action="{% url 'post_upvote' post.slug %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-vote"><i class="far fa-thumbs-up"></i></button>
+                            </form>
+                            <!-- <span class="text-secondary"><i class="far fa-thumbs-up"></i></span> -->
+                            {% endif %}
+                        <!-- The number of upvotes goes before the closing strong tag -->
+                        <span class="text-secondary">{{ post.upvote.all.count }} </span>
+                        </strong>
+                    </div>
+                    
+                    <div class="col-1">
+                        <strong>
+                            {% if user.is_authenticated %}
+                            <form class="d-inline" action="{% url 'post_downvote' post.slug %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-vote"><i class="far fa-thumbs-down"></i></button>
+                            </form>
+                            <!-- <span class="text-secondary"><i class="far fa-thumbs-down"></i></span> -->
+                            {% endif %}
+                        <!-- The number of downvotes goes before the closing strong tag -->
+                        <span class="text-secondary">{{ post.downvote.all.count }} </span>
+                        </strong>
+                    </div>
                     <div class="col-1">
                         {% with comments.count as total_comments %}
                         <strong class="text-secondary"><i class="far fa-comments"></i>
