@@ -90,6 +90,17 @@
             let alert = new bootstrap.Alert(messages);
             alert.close();
         }, 2500);
+
+        function commentReplyToggle(parent_id) {
+            const col = document.getElementById(parent_id);
+
+            if (col.classList.contains('d-none')) {
+                col.classList.remove('d-none');
+        } else {
+            col.classList.add('d-none');
+        }
+
+        }
     </script>
 </body>
 

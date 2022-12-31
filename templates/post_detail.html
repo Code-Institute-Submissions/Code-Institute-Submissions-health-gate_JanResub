@@ -59,7 +59,8 @@
                                 {% csrf_token %}
                                 <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-vote"><i class="far fa-thumbs-up"></i></button>
                             </form>
-                            <!-- <span class="text-secondary"><i class="far fa-thumbs-up"></i></span> -->
+                            {% else %}
+                            <span class="text-secondary"><i class="far fa-thumbs-up"></i></span>
                             {% endif %}
                         <!-- The number of upvotes goes before the closing strong tag -->
                         <span class="text-secondary">{{ post.upvote.all.count }} </span>
@@ -73,7 +74,8 @@
                                 {% csrf_token %}
                                 <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-vote"><i class="far fa-thumbs-down"></i></button>
                             </form>
-                            <!-- <span class="text-secondary"><i class="far fa-thumbs-down"></i></span> -->
+                            {% else %}
+                            <span class="text-secondary"><i class="far fa-thumbs-down"></i></span>
                             {% endif %}
                         <!-- The number of downvotes goes before the closing strong tag -->
                         <span class="text-secondary">{{ post.downvote.all.count }} </span>
@@ -100,7 +102,8 @@
             <h3>Comments:</h3>
             <div class="card-body">
                 <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
-                {% for comment in comments %}
+        {% for comment in comments %}
+            {% if comment.is_parent %}
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold">
                         <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
@@ -113,8 +116,48 @@
                     <!-- The body of the comment goes before the | -->
                     {{ comment.body | linebreaks }}
                 </div>
-                <!-- Our for loop ends here -->
+                <div>
+                    <!-- Reply of the comment box -->
+                    <strong class="text-secondary"><i class="far fa-comments" onclick="commentReplyToggle('{{ comment.id }}')"></i></strong>
+                </div>
+                
+                <div class="col-md-4 card mb-4  mt-3 d-none " id="{{ comment.id }}">
+                    <div class="card-body">
+                        <!-- For later -->
+                        {% if child_commented %}
+                            <div class="alert alert-success" role="alert">
+                                Your reply to the comment is awaiting approval
+                            </div>
+                        {% else %}
+                            {% if user.is_authenticated %}
+                                <h3>Reply to the comment:</h3>
+                                <p>Posting as: {{ user.username }}</p>
+                                <form method="post" action="{% url 'comment_reply' post.id comment.id %}" style="margin-top: 1.3em;">
+                                    {{ comment_form | crispy }}
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% for child_comment in comment.children %} 
+                    <div class="comments child-comment" style="padding: 10px;" >
+                        <p class="font-weight-bold">
+                            <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
+                            {{ child_comment.name }}
+                            <span class=" text-muted font-weight-normal">
+                                <!-- The comment's created date goes here -->
+                                {{ child_comment.created_on }}
+                            </span> wrote:
+                        </p>
+                        <p>{{ child_comment.body | linebreaks }}</p>
+                    </div>
+                    
+                    <!-- Our for loop ends here -->
                 {% endfor %}
+            {% endif %}
+        {% endfor %}
             </div>
         </div>
         <div class="col-md-4 card mb-4  mt-3 ">

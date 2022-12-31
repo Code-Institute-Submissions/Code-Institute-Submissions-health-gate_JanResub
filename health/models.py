@@ -39,8 +39,7 @@ class Post(models.Model):
     upvote = models.ManyToManyField(
         User, related_name='upvote', blank=True)
     downvote = models.ManyToManyField(
-        User, related_name='downvote', blank=True)
-    
+        User, related_name='downvote', blank=True)  
 
     class Meta:
         ordering = ["-created_on"]
@@ -60,6 +59,17 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+
+    @property
+    def children(self):
+        return Comment.objects.filter(parent=self).order_by('-created_on').all()
+
+    @property
+    def is_parent(self):
+        if self.parent is None:
+            return True
+        return False
 
     class Meta:
         ordering = ["created_on"]

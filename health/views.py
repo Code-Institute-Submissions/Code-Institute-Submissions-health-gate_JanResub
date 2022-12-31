@@ -88,6 +88,26 @@ class PostDetail(View):
         )
 
 
+class CommentReply(View):
+
+    def post(self, request, slug, slug1, *args, **kwargs):
+        post = Post.objects.get(id=slug)
+        parent_comment = Comment.objects.get(id=slug1)
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            comment_form.instance.email = request.user.email
+            comment_form.instance.name = request.user.username
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.parent = parent_comment
+            comment.save()
+        else:
+            comment_form = CommentForm()
+
+        return HttpResponseRedirect(reverse('post_detail', args=[post.slug]))
+
+
 class PostLike(View):
     
     def post(self, request, slug, *args, **kwargs):

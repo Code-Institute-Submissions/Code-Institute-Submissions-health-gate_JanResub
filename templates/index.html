@@ -5,13 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-12 mt-3 left">
-            <div>
-                {% for category in categories %}
-                  <a href="{% url 'home' %}?q={{category.name}}">{{category.name}}</a>
-
-                {% endfor %}
-            </div>
+        <div class="col-8 mt-3 left">
             <div class="row">
                 {% for post in posts %}
                 <div class="col-md-4">
@@ -48,6 +42,16 @@
 
             </div>
         </div>
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                {% for category in categories %}
+                <li class="list-group-item">
+                    <a href="{% url 'home' %}?q={{category.name}}">{{category.name}}</a>
+                </li>
+
+                {% endfor %}
+            </ul>
+          </div>
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">
