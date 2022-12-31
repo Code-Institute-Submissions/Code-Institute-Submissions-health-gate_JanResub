@@ -173,12 +173,3 @@ body {
 .child-comment {
     margin-left: 2rem;
 }
-
-.list-group-item a{
-    text-decoration: none;
-    color: black;
-}
-
-.list-group-item:hover a{
-    color: blue;
-}
