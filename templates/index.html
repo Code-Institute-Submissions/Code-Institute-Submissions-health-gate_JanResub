@@ -39,12 +39,14 @@
                             <a href="{% url 'post_detail' post.slug  %}" class="post-link">
                                 <h2 class="card-title">{{ post.title }}</h2>
                                 <p class="card-text">{{ post.excerpt }}</p>
+                                {% if user.is_authenticated %}
                                 <small>
                                     <p>
                                         <a href="{% url 'update_post' post.slug  %}">Edit</a> 
                                         <a href="{% url 'delete_post' post.slug  %}">Delete</a>
                                     </p>
                                 </small>
+                                {% endif %}
                             </a>
                             <hr />
                             <p class="card-text text-muted h6">{{ post.created_on}} <i class="far fa-heart"></i>
