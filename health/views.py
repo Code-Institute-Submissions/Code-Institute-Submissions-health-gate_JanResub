@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Post, Comment, Category
-from .forms import CommentForm, PostForm
+from .forms import CommentForm, PostForm, EditForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
 class PostList(generic.ListView):
@@ -178,3 +180,26 @@ class PostDownVote(LoginRequiredMixin, View):
             post.downvote.remove(request.user)
 
         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+
+class AddPost(CreateView):
+    model = Post
+    template_name = 'add_post.html'
+    form_class = PostForm
+    # fields = '__all__'
+    # summernote_fields = ('content',)
+
+   
+class UpdatePost(UpdateView):
+    model = Post
+    form_class = EditForm
+    template_name = 'update_post.html'
+    # fields = ['title', 'slug', 'featured_image', 'excerpt', 'content']
+
+
+class DeletePost(DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
+
+

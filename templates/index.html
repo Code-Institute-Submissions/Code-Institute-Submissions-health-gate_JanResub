@@ -39,6 +39,12 @@
                             <a href="{% url 'post_detail' post.slug  %}" class="post-link">
                                 <h2 class="card-title">{{ post.title }}</h2>
                                 <p class="card-text">{{ post.excerpt }}</p>
+                                <small>
+                                    <p>
+                                        <a href="{% url 'update_post' post.slug  %}">Edit</a> 
+                                        <a href="{% url 'delete_post' post.slug  %}">Delete</a>
+                                    </p>
+                                </small>
                             </a>
                             <hr />
                             <p class="card-text text-muted h6">{{ post.created_on}} <i class="far fa-heart"></i>
@@ -62,7 +68,6 @@
                 <li class="list-group-item">
                     <a href="{% url 'home' %}?q={{category.name}}">{{category.name}}</a>
                 </li>
-
                 {% endfor %}
             </ul>
           </div>
@@ -75,7 +80,6 @@
             {% endif %}
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-
             {% endif %}
         </ul>
     </nav>

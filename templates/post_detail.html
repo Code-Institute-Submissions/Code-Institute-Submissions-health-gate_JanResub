@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block title %} {{ post.slug }} {% endblock %}
+{% block content %}
 {% load crispy_forms_tags %}
 
 <div class="masthead">
@@ -8,7 +10,10 @@
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ post.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
+                <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}
+                    <small><a href="{% url 'update_post' post.slug  %}">Edit</a></small>
+                    <small><a href="{% url 'delete_post' post.slug  %}">Delete</a></small>
+                </p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
@@ -124,11 +129,11 @@
                 <div class="col-md-4 card mb-4  mt-3 d-none " id="{{ comment.id }}">
                     <div class="card-body">
                         <!-- For later -->
-                        {% if child_commented %}
+                        <!-- {% if child_commented %} -->
                             <div class="alert alert-success" role="alert">
-                                Your reply to the comment is awaiting approval
-                            </div>
-                        {% else %}
+                                <!-- Your reply to the comment is awaiting approval -->
+                            <!-- </div> -->
+                        <!-- {% else %} -->
                             {% if user.is_authenticated %}
                                 <h3>Reply to the comment:</h3>
                                 <p>Posting as: {{ user.username }}</p>
@@ -181,6 +186,11 @@
                 {% endif %}
             </div>
         </div>
+    </div>
+    <div>
+        <a href="{% url 'home' %}">
+            <button type="button" class="btn btn-signup btn mb-2">Back</button>
+        </a>    
     </div>
 </div>
 
