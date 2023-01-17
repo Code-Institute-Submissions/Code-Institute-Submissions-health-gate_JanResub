@@ -28,7 +28,6 @@
         </div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
@@ -39,7 +38,6 @@
                     {{ post.content | safe }}
                 </p>
                 <div class="row">
-
                     <div class="col-1">
                         <strong>
                             {% if user.is_authenticated %}
@@ -58,7 +56,6 @@
                         <span class="text-secondary">{{ post.number_of_likes }} </span>
                         </strong>
                     </div>
-                    
                     <div class="col-1">
                         <strong>
                             {% if user.is_authenticated %}
@@ -72,8 +69,7 @@
                         <!-- The number of upvotes goes before the closing strong tag -->
                         <span class="text-secondary">{{ post.upvote.all.count }} </span>
                         </strong>
-                    </div>
-                    
+                    </div>                   
                     <div class="col-1">
                         <strong>
                             {% if user.is_authenticated %}
@@ -131,11 +127,11 @@
                 <div class="col-md-4 card mb-4  mt-3 d-none " id="{{ comment.id }}">
                     <div class="card-body">
                         <!-- For later -->
-                        <!-- {% if child_commented %} -->
+                        {% if child_commented %}
                             <div class="alert alert-success" role="alert">
-                                <!-- Your reply to the comment is awaiting approval -->
-                            <!-- </div> -->
-                        <!-- {% else %} -->
+                                Your reply to the comment is awaiting approval
+                            </div>
+                        {% else %}
                             {% if user.is_authenticated %}
                                 <h3>Reply to the comment:</h3>
                                 <p>Posting as: {{ user.username }}</p>
@@ -195,5 +191,4 @@
         </a>    
     </div>
 </div>
-
 {% endblock content %}
