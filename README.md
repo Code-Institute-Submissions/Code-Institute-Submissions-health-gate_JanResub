@@ -1,108 +1,105 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Health Gate Blog
+The purpose of creating this health blog, is to facilitate for authors to share their knowlledge and experiences with others. Authors add their research, opinion and such to the larger wealth of health information. It could be based on real-life experiences, where the author wants a platform to communicate with others of similar concerns.
+# Features:
+## Existing Features:
+### Home page:
 
-Welcome amal-yusuf,
+![image](https://user-images.githubusercontent.com/91415085/212841361-0f1208ef-bf5d-4ebc-b420-6b6f00ebc77d.png)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+- The home page feature has the main nav bar whcih include:
+* The home page link
+* The Registration link that ask users to sign up in order to become a part of the community and be able to post thier blogs in the website, also to comments, like, and vote on other posts:
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+![image](https://user-images.githubusercontent.com/91415085/212843153-143d48c0-ff08-445f-85cd-e0a99b901829.png)
 
-## Gitpod Reminders
+* The login icon, which next to the registration icon:
+- After registeration, you can sign in with username and password:
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+![image](https://user-images.githubusercontent.com/91415085/212843856-80b1fe0d-2426-4de4-94c8-ed4406e20ef0.png)
 
-`python3 -m http.server`
+* Once logged in, you have the facility to add a post as an author after clicking on the add post icon next to home icon. Also you have the ability to comments on other posts, like, or vote:
+![image](https://user-images.githubusercontent.com/91415085/212845012-a3f7378c-aef9-4e95-a6ff-1c08475b0c6e.png)
+![image](https://user-images.githubusercontent.com/91415085/212845268-00502681-3de0-4d4e-8424-6a7a44412dc6.png)
 
-A blue button should appear to click: _Make Public_,
+* You can edit or delete your own posts, the facility to update or delete are showing oneach post on either on the main page:
+![image](https://user-images.githubusercontent.com/91415085/212847031-bfa967d6-6911-4726-9556-3e550cdda8b7.png)
 
-Another blue button should appear to click: _Open Browser_.
+Or when click on the categories of each post:
+![image](https://user-images.githubusercontent.com/91415085/212847408-9f6bb0d1-5f3c-4eec-bd5c-7cb059fc7fdf.png)
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+* By clicking on Edit or Delete buttons, you will come accross these two pages:
+![image](https://user-images.githubusercontent.com/91415085/212848569-c2f00050-cf23-4fbb-a625-dfc7a7fddfc6.png)
+![image](https://user-images.githubusercontent.com/91415085/212848809-1b8d2727-5938-4bb9-8576-cf29aa1a44c2.png)
 
-A blue button should appear to click: _Make Public_,
+- These CRUD functionality will allow users to create, read, update, and delete their own posts, and prevent others from doing that.
 
-Another blue button should appear to click: _Open Browser_.
+### Categories Feature:
+The home page contains a minimum of 6 posts from diffirent categories
+- There are 4 Categories at the moments:
+* Niutrition
+* Meditation
+* Health
+* Exercise
+You can find on each category there related subjects
+- I have created costum model which was inspired from the walkthrough project 5, then I have created a code in the template to link the view and the home url with index page. I have also used bootsrap style, and added the css style in style section in the index page.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Posts Feature:
+![image](https://user-images.githubusercontent.com/91415085/212850658-291aac43-deff-483d-8cca-980eb894dc9b.png)
+Each post has the comment section, and the reply to comments secion, also has the like, and vote icons in order for the users to interact with the author:
+![image](https://user-images.githubusercontent.com/91415085/212851555-6ea7c5ba-5633-4ea1-abd3-451c6b428faa.png)
 
-To log into the Heroku toolbelt CLI:
+* In the post section I have created the upvote and downvote buttons, I have used similar strucure for the code used in previous walkthrough codestar project, and added two variables in the Post model and created the view for both of them and linked it to the urls,a and update the post-detail template accordingly, in order to help the users to share thier opinion about the post with the author.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Comments Feature:
+* I have added a success message to the Post Detail view when a user leaves a comment that will let the user know that their comment is awaiting approval, and it will auto-dismiss after 3 seconds:
+![image](https://user-images.githubusercontent.com/91415085/212863122-3ada6acd-fe1c-4280-9936-790b413ba176.png)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
 
-------
+### Reply to Comments Feature:
+I have added a parent variable and the childern function to the Comment model, and linked them to each other by using the decorator, I have create the view, and created JavaScript code to toggle the reply to comment box icon in the template and linked it with the urls.
 
-## Release History
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+## Future features to be added;
+* The ability to edit, and delete reviews functionalities to commments and reply to comments 
+* The ability to submit testimonials
+* The ability to add videos
+* The ability to add like, vote functionalities to comments and reply to comments 
+* The ability to add multibe replies functionalities to the comments 
+* The ability to create a user profile and follow/unfollow other users
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+## Bugs:
+No bugs
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+## Fixed Bugs:
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+In the categories feature:
+### I had e a bug when I was trying to add the bootstrap css style to the categories in the style.css, it didn't apply, and I wanted to get rid of the issue:
+![image](https://user-images.githubusercontent.com/91415085/212871201-2d095baa-a0a3-4636-aa2d-e6fb0468268e.png)
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### I have manged to solve the issue by adding the style section to the index page:
+![image](https://user-images.githubusercontent.com/91415085/212871500-e4957d32-9583-4057-bc20-3af4ebee07f6.png)
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+## Testing:
+I have done testing to my code and checked all the features are working efficiently.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Deployment:
+This project was deployed using Code Institute's mock terminal for Heroku
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+##### Steps for deployment:
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+* Fork or clone this repository
+* Create a new Heroku app
+* Link the Heroku app to the repository
+* Click on deploy:
+Link to Heroku app:
+https://health-gate.herokuapp.com/
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+## Credits: 
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+* Code Institute for the deployment terminal
+* Code Institute for the Walkthrough Project 4
+* Building a social media web app tutorials on YouTube:
+https://www.youtube.com/watch?v=Rpi0Ne1nMdk&list=PLPSM8rIid1a3TkwEmHyDALNuHhqiUiU5A
+https://www.youtube.com/watch?v=J7xaESAddDQ
